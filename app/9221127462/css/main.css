@@ -1,12 +1,11 @@
 
 body {
-    background-color:#393939;
+    background-color:rgba(89, 162, 251, 0.61);
 }
 
 .container{
-
   max-width: 790px;
-
+  background-color: #f6f8fa;
 }
 
 #logo{

@@ -1,11 +1,12 @@
 
    var config = {
-    apiKey: "https://fcbtest-dd0e9.firebaseio.com",
-    authDomain: "https://fcbtest-dd0e9.firebaseio.com",
-    databaseURL: "https://fcbtest-dd0e9.firebaseio.com",
-    projectId: "qwer",
-    storageBucket: "qwre",
-    messagingSenderId: "2"
+    apiKey: "AIzaSyDUnCTzDnmGdjuI5BrC9ygQzZPYmzpbVqM",
+    authDomain: "domotica-cc7a7.firebaseapp.com",
+    databaseURL: "https://domotica-cc7a7-default-rtdb.firebaseio.com",
+    projectId: "domotica-cc7a7",
+    storageBucket: "domotica-cc7a7.appspot.com",
+    messagingSenderId: "337549165249",
+    appId: "1:337549165249:web:e0512b4a8e6e8111be0a40"
   };
   
 
@@ -13,10 +14,10 @@
   firebase.initializeApp(config);
   var db = firebase.database();
 
-  var casa = 'casa1';
+  var casa = 'senderos';
 
-  var foco1 = firebase.database().ref(casa).child('foco1');
-  var foco2 = firebase.database().ref(casa).child('foco2');
+  var exterior2 = firebase.database().ref(casa).child('exterior2');
+  var exterior3 = firebase.database().ref(casa).child('exterior3');
   
   var alarma = firebase.database().ref(casa).child('alarma');
   var movimiento = firebase.database().ref(casa).child('movimiento');
@@ -52,16 +53,16 @@
 
 $(document).ready(function(){
 
-  setTimeout(cargaColor, 1000); // carga la paleta de colores depues de 1 segundo
+  // setTimeout(cargaColor, 1000); // carga la paleta de colores depues de 1 segundo
 
-    foco1.on("value", function(snapshot){
+    exterior2.on("value", function(snapshot){
           var valor = snapshot.val(); 
           console.log(valor); 
         
-          if(valor != 'on'){
-              $('#foco1').prop('checked', false);
+          if(valor != 'true'){
+              $('#exterior2').prop('checked', false);
           }else{
-              $('#foco1').prop('checked', true);
+              $('#exterior2').prop('checked', true);
           }
                 
      });
@@ -89,7 +90,7 @@ $(document).ready(function(){
               console.log('sensor activado');
               $('#sensorMovimiento').prop('checked', false);
           }else{
-              db.ref('casa1').update({ movimiento: "off"});
+              db.ref(casa).update({ movimiento: "off"});
               console.log('sensor desactivado');
               $('#sensorMovimiento').prop('checked', true);
           }
@@ -194,27 +195,27 @@ $(document).ready(function(){
         var tv = $('#tv').is(':checked');
           
          if(foco1 == true){
-            db.ref('casa1').update({ foco1: "on"});
+            db.ref(casa).update({ foco1: "on"});
          }else{
-            db.ref('casa1').update({ foco1: "off"});
+            db.ref(casa).update({ foco1: "off"});
          }
 
          if(foco2 == true){
-            db.ref('casa1').update({ foco2: "on"});
+            db.ref(casa).update({ foco2: "on"});
          }else{
-            db.ref('casa1').update({ foco2: "off"});
+            db.ref(casa).update({ foco2: "off"});
          }
 
          if(sensor == true){
-            db.ref('casa1').update({ alarma: "on"});
+            db.ref(casa).update({ alarma: "on"});
          }else{
-            db.ref('casa1').update({ alarma: "off"});
+            db.ref(casa).update({ alarma: "off"});
          }
 
          if(tv == true){
-            db.ref('casa1').update({ tv: "on"});
+            db.ref(casa).update({ tv: "on"});
          }else{
-            db.ref('casa1').update({ tv: "off"});
+            db.ref(casa).update({ tv: "off"});
          }
 
     });
@@ -222,20 +223,20 @@ $(document).ready(function(){
 
     $('#aromatizante').on('click',function(){
 
-        db.ref('casa1').update({ aromatizante: "on"});
+        db.ref(casa).update({ aromatizante: "on"});
 
       });
 
 
     $('#netflix').on('click',function(){
 
-        db.ref('casa1').update({ netflix: "on"});
+        db.ref(casa).update({ netflix: "on"});
 
       });
 
     $('#youtube').on('click',function(){
 
-        db.ref('casa1').update({ youtube: "on"});
+        db.ref(casa).update({ youtube: "on"});
 
       });
 
@@ -249,25 +250,25 @@ $(".GaugeMeter").gaugeMeter();
 // selector de colores
     
 
-    function cargaColor(){
-          var example = new iro.ColorPicker(".wrapper", {
+    // function cargaColor(){
+    //       var example = new iro.ColorPicker(".wrapper", {
                    
-                    width: 320,
-                    height: 320,
-                    color: colorRGB,
-                    anticlockwise: true,
-                    borderWidth: 1,
-                    borderColor: "#fff",
-                     });
+    //                 width: 320,
+    //                 height: 320,
+    //                 color: colorRGB,
+    //                 anticlockwise: true,
+    //                 borderWidth: 1,
+    //                 borderColor: "#fff",
+    //                  });
 
 
-          example.on("color:change", function (color) {
+    //       example.on("color:change", function (color) {
                       
-                    //console.log(color.rgbString)
-                    rgbFire = color.rgb;
-                    db.ref('casa1').update({ rgb: rgbFire });
+    //                 //console.log(color.rgbString)
+    //                 rgbFire = color.rgb;
+    //                 db.ref(casa).update({ rgb: rgbFire });
 
-           });
+    //        });
 
 
 
@@ -299,7 +300,7 @@ $(".GaugeMeter").gaugeMeter();
   $('#dimvalue').on("input", function(e) {
           //console.log($("#dimvalue").val());
           valor = $("#dimvalue").val();
-          db.ref('casa1').update({ sala: parseInt(valor) });
+          db.ref(casa).update({ sala: parseInt(valor) });
           
           
   })
